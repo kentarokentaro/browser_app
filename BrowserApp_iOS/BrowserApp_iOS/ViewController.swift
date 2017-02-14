@@ -21,6 +21,7 @@ class ViewController: UIViewController,UIWebViewDelegate,UITextFieldDelegate {
 
         // delegate
         self.webView.delegate = self
+        self.textField.delegate = self
         
         // String
         let startURL = "https://www.google.co.jp"
@@ -58,7 +59,7 @@ class ViewController: UIViewController,UIWebViewDelegate,UITextFieldDelegate {
             self.showAlert(message: "Please Enter URL")
         }
         else {
-            // jump to url
+            self.jumpToURL(urlString: urlString!)
             self.setupButtonsEnabled()
         }
         
@@ -66,6 +67,18 @@ class ViewController: UIViewController,UIWebViewDelegate,UITextFieldDelegate {
         self.textField.resignFirstResponder()
 
         return true
+    }
+   
+    /// テキストフィールド検索した際の遷移
+    func jumpToURL(urlString: String) {
+        
+        if let url = NSURL(string: urlString) {
+            let urlRequest = NSURLRequest(url: url as URL)
+            self.webView.loadRequest(urlRequest as URLRequest)
+        }
+        else {
+            self.showAlert(message: "Invalid URL")
+        }
     }
     
     /// テキストフィールド検索した際のアラート表示
