@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController,UIWebViewDelegate {
+class ViewController: UIViewController,UIWebViewDelegate,UITextFieldDelegate {
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var textField: UITextField!
@@ -45,6 +45,28 @@ class ViewController: UIViewController,UIWebViewDelegate {
         super.didReceiveMemoryWarning()
     }
 
+    
+    /// テキストフィールドに入力した際に呼ばれる
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        var urlString = self.textField.text
+        // 前後の空白を取り除く
+        urlString = urlString?.trimmingCharacters(in: NSCharacterSet.whitespaces)
+        
+        if urlString == "" {
+            // alert
+        }
+        else {
+            // jump to url
+            self.setupButtonsEnabled()
+        }
+        
+        // フォーカスを外す（キーボードを隠す）
+        self.textField.resignFirstResponder()
+
+        return true
+    }
+    
     /// WebViewが表示開始時に呼び出される
     func webViewDidStartLoad(_ webView: UIWebView) {
         self.setupButtonsEnabled()
