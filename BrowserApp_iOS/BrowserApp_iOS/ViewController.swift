@@ -47,6 +47,48 @@ class ViewController: UIViewController,UIWebViewDelegate,UITextFieldDelegate {
     }
 
     
+// MARK: WEBVIEW
+    
+    /// ネットワークエラー時
+    func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
+        self.webView.stopLoading()
+        self.activityIndicator.stopAnimating()
+        
+        // ネットワークキャンセル時
+        if error.code != NSURLErrorCancelled() {
+            self.showAlert(message: "Network Error!")
+        }
+        
+        
+        self.updateLocation()
+    }
+    
+    /// WebViewが表示開始時に呼び出される
+    func webViewDidStartLoad(_ webView: UIWebView) {
+        self.setupButtonsEnabled()
+        self.activityIndicator.startAnimating()
+    }
+    
+    /// WebViewが表示完了時に呼び出される
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        self.setupButtonsEnabled()
+        self.activityIndicator.stopAnimating()
+        
+        // URLテキスト
+        if let urlString = self.webView.request?.url {
+            self.textField.text = String(describing: urlString)
+        }
+    }
+    
+    ///
+    func updateLocation() {
+        if let urlString = self.webView.request?.url?.absoluteString {
+            self.textField.text = String(describing: urlString)
+        }
+    }
+    
+// MARK: TEXTFIELD
+    
     /// テキストフィールドに入力した際に呼ばれる
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
@@ -88,23 +130,8 @@ class ViewController: UIViewController,UIWebViewDelegate,UITextFieldDelegate {
         alertController.addAction(defaultAction)
         self.present(alertController, animated: true, completion: nil)
     }
-    
-    /// WebViewが表示開始時に呼び出される
-    func webViewDidStartLoad(_ webView: UIWebView) {
-        self.setupButtonsEnabled()
-        self.activityIndicator.startAnimating()
-    }
-    
-    /// WebViewが表示完了時に呼び出される
-    func webViewDidFinishLoad(_ webView: UIWebView) {    
-        self.setupButtonsEnabled()
-        self.activityIndicator.stopAnimating()
-        
-        // URLテキスト
-        if let urlString = self.webView.request?.url {
-            self.textField.text = String(describing: urlString)
-        }
-    }
+   
+// MARK: BUTTON
 
     /// ボタンの押下制御
     func setupButtonsEnabled() {
@@ -113,8 +140,7 @@ class ViewController: UIViewController,UIWebViewDelegate,UITextFieldDelegate {
         // 進むボタン制御
         self.forwardButton.isEnabled = self.webView.canGoForward
     }
-    
-    
+
     /// 戻るボタン
     @IBAction func goBack(_ sender: Any) {
         self.webView.goBack()
