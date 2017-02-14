@@ -31,6 +31,11 @@ class ViewController: UIViewController {
             self.webView.loadRequest(urlRequest as URLRequest)
         }
 
+        // 戻るボタン制御
+        self.backButton.isEnabled = self.webView.canGoBack
+        
+        // 進むボタン制御
+        self.forwardButton.isEnabled = self.webView.canGoForward
         
     }
 
@@ -39,13 +44,19 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    // 戻るボタン
     @IBAction func goBack(_ sender: Any) {
+        self.webView.goBack()
     }
 
+    // 進むボタン
     @IBAction func goForward(_ sender: Any) {
+        self.webView.goForward()
     }
 
+    // リロードボタン
     @IBAction func reload(_ sender: Any) {
+        self.webView.reload()
     }
 }
 
