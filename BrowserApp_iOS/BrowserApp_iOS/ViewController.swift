@@ -55,11 +55,9 @@ class ViewController: UIViewController,UIWebViewDelegate,UITextFieldDelegate {
         self.activityIndicator.stopAnimating()
         
         // ネットワークキャンセル時
-        if error.code != NSURLErrorCancelled() {
+        if error._code != NSURLErrorCancelled {
             self.showAlert(message: "Network Error!")
         }
-        
-        
         self.updateLocation()
     }
     
@@ -92,16 +90,20 @@ class ViewController: UIViewController,UIWebViewDelegate,UITextFieldDelegate {
     /// テキストフィールドに入力した際に呼ばれる
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
-        var urlString = self.textField.text
+        var urlString = self.textField.text!
         // 前後の空白を取り除く
-        urlString = urlString?.trimmingCharacters(in: NSCharacterSet.whitespaces)
+        urlString = urlString.trimmingCharacters(in: NSCharacterSet.whitespaces)
         
         if urlString == "" {
             // alert
             self.showAlert(message: "Please Enter URL")
         }
         else {
-            self.jumpToURL(urlString: urlString!)
+            
+            if !(urlString.hasPrefix("http://")) && !(urlString.hasPrefix("https://")) {
+                urlString = "https://" + urlString
+            }
+            self.jumpToURL(urlString: urlString)
             self.setupButtonsEnabled()
         }
         
