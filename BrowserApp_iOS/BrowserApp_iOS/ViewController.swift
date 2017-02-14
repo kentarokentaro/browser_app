@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController,UIWebViewDelegate {
 
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var webView: UIWebView!
@@ -18,6 +18,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // delegate
+        self.webView.delegate = self
+        
         // String
         let startURL = "https://www.google.co.jp"
         
@@ -30,13 +33,8 @@ class ViewController: UIViewController {
             // webView.loadRequest
             self.webView.loadRequest(urlRequest as URLRequest)
         }
-
-        // 戻るボタン制御
-        self.backButton.isEnabled = self.webView.canGoBack
         
-        // 進むボタン制御
-        self.forwardButton.isEnabled = self.webView.canGoForward
-        
+        self.setupButtonsEnabled()
     }
 
     override func didReceiveMemoryWarning() {
@@ -44,17 +42,31 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    // 戻るボタン
+    // WebViewが表示完了時に呼び出される
+    func webViewDidFinishLoad(_ webView: UIWebView) {    
+        self.setupButtonsEnabled()
+    }
+
+    /// ボタンの押下制御
+    func setupButtonsEnabled() {
+        // 戻るボタン制御
+        self.backButton.isEnabled = self.webView.canGoBack
+        // 進むボタン制御
+        self.forwardButton.isEnabled = self.webView.canGoForward
+    }
+    
+    
+    /// 戻るボタン
     @IBAction func goBack(_ sender: Any) {
         self.webView.goBack()
     }
 
-    // 進むボタン
+    /// 進むボタン
     @IBAction func goForward(_ sender: Any) {
         self.webView.goForward()
     }
 
-    // リロードボタン
+    /// リロードボタン
     @IBAction func reload(_ sender: Any) {
         self.webView.reload()
     }
