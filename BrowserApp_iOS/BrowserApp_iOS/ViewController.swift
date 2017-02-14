@@ -55,6 +55,7 @@ class ViewController: UIViewController,UIWebViewDelegate,UITextFieldDelegate {
         
         if urlString == "" {
             // alert
+            self.showAlert(message: "Please Enter URL")
         }
         else {
             // jump to url
@@ -65,6 +66,14 @@ class ViewController: UIViewController,UIWebViewDelegate,UITextFieldDelegate {
         self.textField.resignFirstResponder()
 
         return true
+    }
+    
+    /// テキストフィールド検索した際のアラート表示
+    func showAlert(message: String) {
+        let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: "OK",style: .default, handler: nil)
+        alertController.addAction(defaultAction)
+        self.present(alertController, animated: true, completion: nil)
     }
     
     /// WebViewが表示開始時に呼び出される
