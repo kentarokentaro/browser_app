@@ -10,6 +10,7 @@ import UIKit
 
 class ViewController: UIViewController,UIWebViewDelegate {
 
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var webView: UIWebView!
     @IBOutlet weak var backButton: UIBarButtonItem!
@@ -34,17 +35,26 @@ class ViewController: UIViewController,UIWebViewDelegate {
             self.webView.loadRequest(urlRequest as URLRequest)
         }
         
+        // ボタン制御メソッドの呼び出し
         self.setupButtonsEnabled()
+        // 表示していない時は隠す
+        self.activityIndicator.hidesWhenStopped = true
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
-    // WebViewが表示完了時に呼び出される
+    /// WebViewが表示開始時に呼び出される
+    func webViewDidStartLoad(_ webView: UIWebView) {
+        self.setupButtonsEnabled()
+        self.activityIndicator.startAnimating()
+    }
+    
+    /// WebViewが表示完了時に呼び出される
     func webViewDidFinishLoad(_ webView: UIWebView) {    
         self.setupButtonsEnabled()
+        self.activityIndicator.stopAnimating()
     }
 
     /// ボタンの押下制御

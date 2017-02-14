@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12072"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -57,6 +58,9 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="A8V-v2-mRw">
+                                <rect key="frame" x="334" y="35" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.43529411764705883" green="0.32156862745098042" blue="0.41960784313725491" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -64,15 +68,18 @@
                             <constraint firstItem="VfI-3L-LYH" firstAttribute="top" secondItem="x4g-qj-hjT" secondAttribute="bottom" id="0zo-iu-scP"/>
                             <constraint firstItem="uho-1z-2gS" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="10" id="FmW-e2-sFe"/>
                             <constraint firstAttribute="trailing" secondItem="uho-1z-2gS" secondAttribute="trailing" constant="10" id="K2b-hz-DDc"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="A8V-v2-mRw" secondAttribute="trailing" constant="5" id="M54-r3-aDK"/>
                             <constraint firstItem="x4g-qj-hjT" firstAttribute="top" secondItem="uho-1z-2gS" secondAttribute="bottom" constant="10" id="REM-kB-YbV"/>
                             <constraint firstItem="uho-1z-2gS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="10" id="Zrr-V0-mvg"/>
                             <constraint firstAttribute="trailing" secondItem="x4g-qj-hjT" secondAttribute="trailing" id="fyb-ru-47E"/>
+                            <constraint firstItem="A8V-v2-mRw" firstAttribute="centerY" secondItem="uho-1z-2gS" secondAttribute="centerY" id="gaD-rO-g8n"/>
                             <constraint firstItem="x4g-qj-hjT" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="hlp-oq-Alu"/>
                             <constraint firstItem="VfI-3L-LYH" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="utA-U5-xHV"/>
                             <constraint firstAttribute="trailing" secondItem="VfI-3L-LYH" secondAttribute="trailing" id="vTC-rZ-H0P"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="A8V-v2-mRw" id="XR1-kf-dz6"/>
                         <outlet property="backButton" destination="5KZ-hM-RPu" id="osL-ec-uXp"/>
                         <outlet property="forwardButton" destination="kAP-Wb-HeS" id="odS-Ga-vqB"/>
                         <outlet property="textField" destination="uho-1z-2gS" id="XwQ-6n-PVF"/>
