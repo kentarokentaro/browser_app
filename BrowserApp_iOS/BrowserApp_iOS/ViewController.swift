@@ -23,18 +23,15 @@ class ViewController: UIViewController,UIWebViewDelegate,UITextFieldDelegate {
         self.webView.delegate = self
         self.textField.delegate = self
         
-        // String
-        let startURL = "https://www.google.co.jp"
+        // ボーダー
+        let topBorder = CALayer()
+        topBorder.frame = CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: self.webView.frame.size.width, height: 1))
+        topBorder.backgroundColor = UIColor.lightGray.cgColor
+        self.webView.layer.addSublayer(topBorder)
         
-        // NSURL
-        if let url = NSURL(string: startURL) {
-
-            // NSURLRequest
-            let urlRequest = NSURLRequest(url: url as URL)
-            
-            // webView.loadRequest
-            self.webView.loadRequest(urlRequest as URLRequest)
-        }
+        // start url
+        let startURL = "https://www.google.co.jp"
+        self.jumpToURL(urlString: startURL)
         
         // ボタン制御メソッドの呼び出し
         self.setupButtonsEnabled()
@@ -116,8 +113,11 @@ class ViewController: UIViewController,UIWebViewDelegate,UITextFieldDelegate {
     /// テキストフィールド検索した際の遷移
     func jumpToURL(urlString: String) {
         
+        // NSURL
         if let url = NSURL(string: urlString) {
+            // NSURLRequest
             let urlRequest = NSURLRequest(url: url as URL)
+            // webView.loadRequest
             self.webView.loadRequest(urlRequest as URLRequest)
         }
         else {
