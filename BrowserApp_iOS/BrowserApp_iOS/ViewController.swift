@@ -14,9 +14,24 @@ class ViewController: UIViewController {
     @IBOutlet weak var webView: UIWebView!
     @IBOutlet weak var backButton: UIBarButtonItem!
     @IBOutlet weak var forwardButton: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
+        // String
+        let startURL = "https://www.google.co.jp"
+        
+        // NSURL
+        if let url = NSURL(string: startURL) {
+
+            // NSURLRequest
+            let urlRequest = NSURLRequest(url: url as URL)
+            
+            // webView.loadRequest
+            self.webView.loadRequest(urlRequest as URLRequest)
+        }
+
+        
     }
 
     override func didReceiveMemoryWarning() {
