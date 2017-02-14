@@ -55,6 +55,11 @@ class ViewController: UIViewController,UIWebViewDelegate {
     func webViewDidFinishLoad(_ webView: UIWebView) {    
         self.setupButtonsEnabled()
         self.activityIndicator.stopAnimating()
+        
+        // URLテキスト
+        if let urlString = self.webView.request?.url {
+            self.textField.text = String(describing: urlString)
+        }
     }
 
     /// ボタンの押下制御
